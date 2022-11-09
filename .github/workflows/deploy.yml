@@ -44,7 +44,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           source: 'docker-compose.yml'
-          target: 'docker-compose.yml'
+          target: '.'
 
       - name: SSH remote and Run Docker container
         env:
