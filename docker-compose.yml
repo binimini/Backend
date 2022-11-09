@@ -1,0 +1,28 @@
+version: '0.1'
+
+services:
+  app:
+    image: concoder-server
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATABASE_SCHEMA: ${SPRING_DATABASE_SCHEMA}
+      SPRING_DATABASE_USERNAME: ${SPRING_DATABASE_USERNAME}
+      SPRING_DATABASE_PASSWORD: ${SPRING_DATABASE_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - concoder-volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SPRING_DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${SPRING_DATABASE_SCHEMA}
+
+  redis:
+    image: redis:6.0
+    ports:
+      - 6379:6379
+
+volumes:
+  concoder-volume:
