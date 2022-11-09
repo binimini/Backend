@@ -44,7 +44,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           source: 'docker-compose.yml'
-          target: '.'
+          target: 'compose'
+          rm: true
 
       - name: SSH remote and Run Docker container
         env:
@@ -60,4 +61,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST
           script: |
+            cd compose
             docker-compose up -d
