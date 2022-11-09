@@ -77,4 +77,5 @@ jobs:
             REDIS_HOST=$REDIS_HOST" | sudo tee .env
 
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/concoder-server:latest
+            docker compose down
             docker-compose up -d
