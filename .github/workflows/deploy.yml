@@ -45,14 +45,12 @@ jobs:
           SPRING_DATABASE_PASSWORD: ${{ secrets.SPRING_DATABASE_PASSWORD}}
           SPRING_DATABASE_HOST: ${{ secrets.SPRING_DATABASE_HOST}}
           REDIS_HOST: ${{ secrets.REDIS_HOST}}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_IP }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST,DOCKER_USERNAME,DOCKER_PASSWORD
+          envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST
           script: |
             echo $SPRING_DATABASE_HOST
             echo $SPRING_DATABASE_SCHEMA
@@ -71,5 +69,4 @@ jobs:
 
             docker compose down
             docker-compose up -d
-            echo $DOCKER_PASSWORD | docker login ghcr.io -u $DOCKER_USERNAME --password-stdin 
             docker-compose push
