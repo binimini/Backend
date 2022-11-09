@@ -28,13 +28,22 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
+      - name: Build image
+        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/concoder-server:latest
+
+      - name: Docker login
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/concoder-server:latest
+
       - name: Copy Docker files
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_IP }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: 'docker-compose.yml,Dockerfile'
+          source: 'docker-compose.yml'
           target: 'compose'
           rm: true
 
@@ -69,4 +78,3 @@ jobs:
 
             docker compose down
             docker-compose up -d
-            docker-compose push
