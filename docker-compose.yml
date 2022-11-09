@@ -7,11 +7,8 @@ services:
     image: binimini/concoder-server:latest
     ports:
       - 8080:8080
-    environment:
-      SPRING_DATABASE_SCHEMA: ${SPRING_DATABASE_SCHEMA}
-      SPRING_DATABASE_USERNAME: ${SPRING_DATABASE_USERNAME}
-      SPRING_DATABASE_PASSWORD: ${SPRING_DATABASE_PASSWORD}
-      REDIS_HOST: ${REDIS_HOST}
+    env_file:
+      - .env
 
   mysql:
     image: mysql:8.0
