@@ -61,5 +61,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST
           script: |
+            echo $SPRING_DATABASE_HOST
             cd compose
             docker-compose up -d
