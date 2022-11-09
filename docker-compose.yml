@@ -2,7 +2,7 @@ version: '3.0'
 
 services:
   app:
-    image: concoder-server
+    image: binimini/concoder-server:latest
     ports:
       - 8080:8080
     environment:
