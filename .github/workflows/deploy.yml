@@ -67,4 +67,13 @@ jobs:
             echo $SPRING_DATABASE_PASSWORD
             echo $REDIS_HOST
             cd compose
+
+            sudo touch .env
+            sudo echo "
+            SPRING_DATABASE_SCHEMA=$SPRING_DATABASE_SCHEMA
+            SPRING_DATABASE_USERNAME=$SPRING_DATABASE_USERNAME
+            SPRING_DATABASE_PASSWORD=$SPRING_DATABASE_PASSWORD
+            SPRING_DATABASE_HOST=$SPRING_DATABASE_HOST
+            REDIS_HOST=$REDIS_HOST" | sudo tee .env
+
             docker-compose up -d
